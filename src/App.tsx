@@ -2,31 +2,27 @@ import Header from "./components/header/Header";
 import StickerGrid from "./components/sticker-grid/StickerGrid";
 import { StickerModel } from "./models/StickerModel";
 import { useEffect, useState } from "react";
+import { stickersService } from "./services/stickers-service";
+import { favsService } from "./services/fav-service";
 
 function App() {
-  // Primero usamos el state para guardar los stickers
   const [stickers, setStickers] = useState<StickerModel[]>([]);
+  const [favs, setFavs] = useState<StickerModel[]>([]);
 
-  // Luego, usamos el useEffect para hacer el fetch
-  // y guardar los stickers en el state
   useEffect(() => {
-    fetch("https://valorant-api.com/v1/sprays?language=es-MX")
-      .then((response) => response.json())
-      .then(({ data, status }: {data: object[], status: number}) => {
-        if (status !== 200) {
+    const sub = stickersService.stickers.subscribe(setStickers);
+    return () => sub.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const sub = favsService.favs.subscribe(setFavs);
+    return () => sub.unsubscribe();
+  }, []);
+
           throw new Error("Error al obtener los stickers");
         }
         const parsed = data.map(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (e: any): StickerModel => ({
-            id: e.uuid,
-            imageUrl: e.fullTransparentIcon ?? e.fullIcon ?? e.displayIcon,
-            title: e.displayName,
-          })
-        );
-        setStickers(parsed);
-      });
-  });
 
   return (
     <>
