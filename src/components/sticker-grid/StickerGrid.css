@@ -1,0 +1,8 @@
+.sticker-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
