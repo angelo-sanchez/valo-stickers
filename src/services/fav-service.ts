@@ -2,10 +2,10 @@ import { BehaviorSubject } from "rxjs";
 import { StickerModel } from "../models/StickerModel";
 
 const favs$ = new BehaviorSubject<StickerModel[]>([]);
-const idb = indexedDB.open("valorant-stickers", 1);
 
 export const favsService = {
   init: () => {
+    const idb = indexedDB.open("valorant-stickers", 1);
     idb.onupgradeneeded = () => {
       const db = idb.result;
       db.createObjectStore("stickers", { keyPath: "id" });
@@ -21,6 +21,7 @@ export const favsService = {
     };
   },
   addFav: (sticker: StickerModel) => {
+    const idb = indexedDB.open("valorant-stickers", 1);
     idb.onsuccess = () => {
       const db = idb.result;
       const tx = db.transaction("stickers", "readwrite");
@@ -32,6 +33,7 @@ export const favsService = {
     };
   },
   removeFav: (id: string) => {
+    const idb = indexedDB.open("valorant-stickers", 1);
     idb.onsuccess = () => {
       const db = idb.result;
       const tx = db.transaction("stickers", "readwrite");

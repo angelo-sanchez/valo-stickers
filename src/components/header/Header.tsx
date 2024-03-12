@@ -1,11 +1,19 @@
-import React from "react";
+import { useEffect, useState, FC } from "react";
 import "./Header.css";
+import { favsService } from "../../services/fav-service";
 
-interface HeaderProps {
-  favoritesCount: number;
-}
+declare type Props = {
+  favClicked: () => void;
+};
 
-const Header: React.FC<HeaderProps> = ({ favoritesCount }) => {
+const Header: FC<Props> = ({ favClicked }) => {
+  const [favoritesCount, setFavoritesCount] = useState(0);
+  useEffect(() => {
+    const sub = favsService.favs.subscribe((favs) => {
+      setFavoritesCount(favs.length);
+    });
+    return () => sub.unsubscribe();
+  }, []);
   return (
     <header>
       <div>
@@ -13,6 +21,7 @@ const Header: React.FC<HeaderProps> = ({ favoritesCount }) => {
         <button
           onClick={() => {
             console.log("clicked");
+            favClicked();
           }}
         >
           <span>{favoritesCount}</span>

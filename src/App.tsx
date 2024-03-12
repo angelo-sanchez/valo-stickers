@@ -19,15 +19,13 @@ function App() {
     return () => sub.unsubscribe();
   }, []);
 
-          throw new Error("Error al obtener los stickers");
-        }
-        const parsed = data.map(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [favMode, setFavMode] = useState(false);
+  const toggleFavMode = () => setFavMode(!favMode);
 
   return (
     <>
-      <Header favoritesCount={1}></Header>
-      <StickerGrid stickers={stickers}></StickerGrid>
+      <Header favClicked={toggleFavMode} />
+      <StickerGrid stickers={favMode ? favs : stickers}></StickerGrid>
     </>
   );
 }
