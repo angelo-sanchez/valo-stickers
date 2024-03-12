@@ -12,13 +12,14 @@
   object-fit: contain;
   overflow: hidden;
   pointer-events: none;
+  background-color: var(--bg-color);
+  border-radius: 5px;
 }
 
 .sticker-name {
   color: white;
   font-size: 15px;
   font-weight: bold;
-  margin-top: 10px;
   text-overflow: ellipsis;
   max-lines: 2;
   word-wrap: break-word;
@@ -27,4 +28,27 @@
 button {
   border: none;
   background-color: transparent;
+}
+
+.action {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.action .sticker-name {
+  flex-grow: 1;
+}
+
+.sticker-fav {
+  display: block;
+  min-width: 20px;
+  max-width: 20px;
+  height: 20px;
+}
+
+.sticker-fav.active svg {
+  fill: red;
+  stroke: red;
 }
