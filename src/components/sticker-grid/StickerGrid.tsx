@@ -11,8 +11,7 @@ const StickerGrid: React.FC<Props> = ({ stickers }) => {
       {stickers.map((sticker) => (
         <Sticker
           key={sticker.id}
-          src={sticker.imageUrl}
-          nombre={sticker.title}
+          sticker={sticker}
         />
       ))}
     </div>
