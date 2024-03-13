@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-    workflow_dispatch: # Para ejecutar manualmente el deploy
+  workflow_dispatch: # Para ejecutar manualmente el deploy
 
 jobs:
   build:
